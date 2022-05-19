@@ -1,0 +1,19 @@
+{
+  "name": "fullstack-ts-graph",
+  "version": "1.0.0",
+  "description": "A Social Media App Made With Typescript and GraphQl",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amir-mln/fullstack-ts-graph.git"
+  },
+  "author": "Amir Mln @ github.com/amir-mln",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amir-mln/fullstack-ts-graph/issues"
+  },
+  "homepage": "https://github.com/amir-mln/fullstack-ts-graph#readme"
+}
