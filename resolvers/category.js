@@ -1,5 +1,5 @@
 export default {
-  products({ id: categoryId }, { filters: argFilters }, { PRODUCTS }) {
+  products({ id: categoryId }, { filters: argFilters }, { PRODUCTS, REVIEWS }) {
     let products = PRODUCTS.filter((product) => product.categoryId === categoryId);
 
     if (argFilters) {

@@ -10,6 +10,12 @@ export default gql`
     category(id: ID!): Category
   }
 
+  type Mutation {
+    addProduct(input: NewProduct!): Product!
+    deleteProduct(id: ID!): [Product!]!
+    updateProduct(updatedFields: UpdatingProduct!, id: ID!): Product!
+  }
+
   type Product {
     id: ID!
     name: String!
@@ -20,6 +26,26 @@ export default gql`
     description: String!
     category: Category!
     reviews: [Review!]!
+  }
+
+  input NewProduct {
+    name: String!
+    price: Float!
+    quantity: Int!
+    onSale: Boolean!
+    imageUrl: String
+    description: String!
+    categoryId: ID!
+  }
+
+  input UpdatingProduct {
+    name: String
+    price: Float
+    quantity: Int
+    onSale: Boolean
+    imageUrl: String
+    description: String
+    categoryId: ID
   }
 
   input ProductsFilters {

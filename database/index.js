@@ -11,16 +11,6 @@ export default {
       description: "accusamus beatae ad facilis cum similique qui sunt",
     },
     {
-      id: "4",
-      name: "Fork",
-      categoryId: "1",
-      price: "22.45",
-      quantity: "5",
-      onSale: false,
-      imageUrl: "https://via.placeholder.com/150/92c952",
-      description: "accusamus beatae ad facilis cum similique qui sunt",
-    },
-    {
       id: "2",
       name: "Shovel",
       categoryId: "2",
@@ -39,6 +29,16 @@ export default {
       onSale: false,
       imageUrl: "https://via.placeholder.com/150/24f355",
       description: "officia porro iure quia iusto qui ipsa ut modi",
+    },
+    {
+      id: "4",
+      name: "Fork",
+      categoryId: "1",
+      price: "22.45",
+      quantity: "5",
+      onSale: false,
+      imageUrl: "https://via.placeholder.com/150/92c952",
+      description: "accusamus beatae ad facilis cum similique qui sunt",
     },
   ],
   CATEGORIES: [
