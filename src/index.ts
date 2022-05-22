@@ -1,9 +1,12 @@
-import { ApolloServer, gql } from "apollo-server";
+import { ApolloServer } from "apollo-server";
 
-import typeDefs from "./schema";
 import resolvers from "./resolvers";
+import typeDefs from "./graphql/schema";
+import prismaClient from "./prisma/client";
 
-const server = new ApolloServer({ typeDefs, resolvers });
+const context = { prismaClient };
+
+const server = new ApolloServer({ typeDefs, resolvers, context });
 
 server
   .listen()
