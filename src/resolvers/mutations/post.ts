@@ -15,24 +15,89 @@ type PostCreateProps = {
   };
 };
 
+type PostUpdateProps = {
+  args: {
+    postId: Number;
+    updatedPost: NewPost;
+  };
+};
+
+type PostDeleteProps = {
+  args: {
+    postId: Number;
+  };
+};
+
 export default {
   postCreate: withResolverProps<PostCreateProps, Promise<PostPayload>>(
     async ({ args: { newPost }, context: { prismaClient } }) => {
-      if (!newPost.title.trim() || !newPost.content.trim())
-        return {
-          userErrors: [
-            {
-              name: "400",
-              message: "You must provide title and content to create a post",
-            },
-          ],
-          post: null,
-        };
-
       return {
         userErrors: [],
         post: await prismaClient.post.create({
           data: { ...newPost, authorId: 1 },
+        }),
+      };
+    }
+  ),
+  postUpdate: withResolverProps<PostUpdateProps, Promise<PostPayload>>(
+    async ({ context: { prismaClient }, args: { postId, updatedPost } }) => {
+      const { title, content } = updatedPost;
+
+      const existingPost = await prismaClient.post.findUnique({
+        where: {
+          id: Number(postId),
+        },
+      });
+
+      if (!existingPost) {
+        return {
+          userErrors: [
+            {
+              name: "404",
+              message: "Post does not exist",
+            },
+          ],
+          post: null,
+        };
+      }
+
+      return {
+        userErrors: [],
+        post: await prismaClient.post.update({
+          data: updatedPost,
+          where: {
+            id: Number(postId),
+          },
+        }),
+      };
+    }
+  ),
+  postDelete: withResolverProps<PostDeleteProps, Promise<PostPayload>>(
+    async ({ context: { prismaClient }, args: { postId } }) => {
+      const post = await prismaClient.post.findUnique({
+        where: {
+          id: Number(postId),
+        },
+      });
+
+      if (!post) {
+        return {
+          userErrors: [
+            {
+              name: "404",
+              message: "Post does not exist",
+            },
+          ],
+          post: null,
+        };
+      }
+
+      return {
+        userErrors: [],
+        post: await prismaClient.post.delete({
+          where: {
+            id: Number(postId),
+          },
         }),
       };
     }

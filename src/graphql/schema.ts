@@ -9,6 +9,7 @@ export default gql`
 
   type Mutation {
     postCreate(newPost: NewPost!): PostPayload!
+    postUpdate(postId: ID!, updatedPost: NewPost!): PostPayload!
   }
 
   type User {
