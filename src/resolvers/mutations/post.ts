@@ -36,7 +36,7 @@ export default {
       return {
         userErrors: [],
         post: await prismaClient.post.create({
-          data: { ...newPost, author: { connect: { id: user.id } } },
+          data: { ...newPost, author: { connect: { id: user.userId } } },
         }),
       };
     }
@@ -51,7 +51,7 @@ export default {
         },
       });
 
-      if (!existingPost || existingPost.authorId !== user.id) {
+      if (!existingPost || existingPost.authorId !== user.userId) {
         return {
           userErrors: [
             {
@@ -84,7 +84,7 @@ export default {
         },
       });
 
-      if (!post || post.authorId !== user.id) {
+      if (!post || post.authorId !== user.userId) {
         return {
           userErrors: [
             {

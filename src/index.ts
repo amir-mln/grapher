@@ -9,7 +9,7 @@ import { JWT_SECRET } from "./utils/secrets";
 import type { ExpressContext } from "apollo-server-express";
 
 export type ApolloContext = ReturnType<typeof context>;
-export type UserOfContext = { id: number } | null;
+export type UserOfContext = { userId: number } | null;
 
 const context = ({ req, res }: ExpressContext) => {
   const token = req.headers.authorization || "";

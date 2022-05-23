@@ -1,3 +1,4 @@
 import postMutations from "./post";
+import authMutations from "./auth";
 
-export default { ...postMutations };
+export default { ...postMutations, ...authMutations };
