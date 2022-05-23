@@ -1,6 +1,6 @@
 {
   "watch": "./**/*.ts",
   "execMap": {
-    "ts": "npx ts-node"
+    "ts": "npx ts-node -r tsconfig-paths/register"
   }
 }
