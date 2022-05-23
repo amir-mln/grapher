@@ -18,7 +18,7 @@ type PostCreateProps = {
 type PostUpdateProps = {
   args: {
     postId: Number;
-    updatedPost: NewPost;
+    updatedPost: Partial<NewPost>;
   };
 };
 
@@ -34,15 +34,13 @@ export default {
       return {
         userErrors: [],
         post: await prismaClient.post.create({
-          data: { ...newPost, authorId: 1 },
+          data: { ...newPost, author: { connect: { id: 1 } } },
         }),
       };
     }
   ),
   postUpdate: withResolverProps<PostUpdateProps, Promise<PostPayload>>(
     async ({ context: { prismaClient }, args: { postId, updatedPost } }) => {
-      const { title, content } = updatedPost;
-
       const existingPost = await prismaClient.post.findUnique({
         where: {
           id: Number(postId),
