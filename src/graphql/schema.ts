@@ -12,15 +12,39 @@ export default gql`
     postCreate(newPost: NewPost!): PostPayload!
     postUpdate(postId: ID!, updatedPost: NewPost!): PostPayload!
     postDelete(postId: ID!): PostPayload!
+    userSignin(credentials: SigninCredentials!): SigninPayload!
+    userSignup(credentials: SignupCredentials!): SignupPayload!
   }
 
   type User {
     id: ID!
     name: String
-    email: String
+    email: String!
     createdAt: String
     profile: Profile
     posts: [Post]
+  }
+
+  input SigninCredentials {
+    password: String!
+    email: String!
+  }
+
+  input SignupCredentials {
+    password: String!
+    email: String!
+    name: String!
+    profileBio: String!
+  }
+
+  type SigninPayload {
+    email: String
+    token: String
+    message: String
+  }
+
+  type SignupPayload {
+    message: String
   }
 
   type Profile {

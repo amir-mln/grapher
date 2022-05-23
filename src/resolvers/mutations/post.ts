@@ -30,24 +30,28 @@ type PostDeleteProps = {
 
 export default {
   postCreate: withResolverProps<PostCreateProps, Promise<PostPayload>>(
-    async ({ args: { newPost }, context: { prismaClient } }) => {
+    async ({ args: { newPost }, context: { prismaClient, user } }) => {
+      if (!user) return { userErrors: [{ name: "403", message: "Unauthorized" }], post: null };
+
       return {
         userErrors: [],
         post: await prismaClient.post.create({
-          data: { ...newPost, author: { connect: { id: 1 } } },
+          data: { ...newPost, author: { connect: { id: user.id } } },
         }),
       };
     }
   ),
   postUpdate: withResolverProps<PostUpdateProps, Promise<PostPayload>>(
-    async ({ context: { prismaClient }, args: { postId, updatedPost } }) => {
+    async ({ context: { prismaClient, user }, args: { postId, updatedPost } }) => {
+      if (!user) return { userErrors: [{ name: "403", message: "Unauthorized" }], post: null };
+
       const existingPost = await prismaClient.post.findUnique({
         where: {
           id: Number(postId),
         },
       });
 
-      if (!existingPost) {
+      if (!existingPost || existingPost.authorId !== user.id) {
         return {
           userErrors: [
             {
@@ -71,14 +75,16 @@ export default {
     }
   ),
   postDelete: withResolverProps<PostDeleteProps, Promise<PostPayload>>(
-    async ({ context: { prismaClient }, args: { postId } }) => {
+    async ({ context: { prismaClient, user }, args: { postId } }) => {
+      if (!user) return { userErrors: [{ name: "403", message: "Unauthorized" }], post: null };
+
       const post = await prismaClient.post.findUnique({
         where: {
           id: Number(postId),
         },
       });
 
-      if (!post) {
+      if (!post || post.authorId !== user.id) {
         return {
           userErrors: [
             {

@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import type { ApolloContext } from "src";
 
 interface DefaultResolverProps {
   source?: any;
@@ -8,7 +8,7 @@ interface DefaultResolverProps {
 
 type ResolverProps<HigherProps extends DefaultResolverProps> = {
   [key in "source" | "args" | "context"]: key extends "context"
-    ? { prismaClient: PrismaClient }
+    ? ApolloContext
     : HigherProps[key];
 };
 
