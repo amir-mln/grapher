@@ -3,13 +3,15 @@ import { gql } from "apollo-server";
 export default gql`
   type Query {
     user: User
-    profile: Profile
-    post: Post
+    profile(userId: ID!): Profile
+    post(postId: ID!): Post
+    posts(authorId: ID!): [Post!]!
   }
 
   type Mutation {
     postCreate(newPost: NewPost!): PostPayload!
     postUpdate(postId: ID!, updatedPost: NewPost!): PostPayload!
+    postDelete(postId: ID!): PostPayload!
   }
 
   type User {
