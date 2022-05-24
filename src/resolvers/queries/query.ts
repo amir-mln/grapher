@@ -17,24 +17,23 @@ export default {
       await prismaClient.post.findUnique({ where: { id: +postId } })
   ),
   posts: withResolverProps(
-    async ({ context: { prismaClient } }) =>
-      await prismaClient.post.findMany({ where: { published: true } })
+    async ({ context: { prismaClient } }) => await prismaClient.post.findMany({})
   ),
   profile: withResolverProps<{ args: { userId: number } }, Promise<Partial<Profile> | null>>(
     async ({ context: { prismaClient, user }, args: { userId } }) => {
-      const isMyProfile = +userId === user?.userId;
+      const isOwner = +userId === user?.userId;
       const profile = await prismaClient.profile.findUnique({
         where: {
           userId: +userId,
         },
-        select: { userId: isMyProfile, bio: true, id: true },
+        select: { userId: true, bio: true, id: true },
       });
 
       if (!profile) return null;
 
       return {
         ...profile,
-        isMyProfile,
+        isOwner,
       };
     }
   ),

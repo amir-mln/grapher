@@ -50,6 +50,7 @@ export default gql`
   type Profile {
     id: ID!
     bio: String
+    isOwner: Boolean
     createdAt: String
     user: User!
   }
@@ -59,6 +60,7 @@ export default gql`
     title: String
     content: String
     published: Boolean
+    createdAt: String
     user: User!
   }
 
