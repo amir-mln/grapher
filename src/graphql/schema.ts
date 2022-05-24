@@ -2,10 +2,10 @@ import { gql } from "apollo-server";
 
 export default gql`
   type Query {
-    user: User
+    me: User
     profile(userId: ID!): Profile
     post(postId: ID!): Post
-    posts(authorId: ID!): [Post!]!
+    posts: [Post!]!
   }
 
   type Mutation {
