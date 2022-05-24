@@ -21,6 +21,7 @@
     "@prisma/client": "^3.14.0",
     "apollo-server": "^3.7.0",
     "bcryptjs": "^2.4.3",
+    "dataloader": "^2.1.0",
     "graphql": "^16.5.0",
     "jsonwebtoken": "^8.5.1",
     "prisma": "^3.14.0",
